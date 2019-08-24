@@ -1,7 +1,7 @@
 #ifndef MifareUltralight_h
 #define MifareUltralight_h
 
-#include <PN532.h>
+#include <PN532/PN532/PN532.h>
 #include <NfcTag.h>
 #include <Ndef.h>
 

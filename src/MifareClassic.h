@@ -7,7 +7,7 @@
 #ifdef NDEF_SUPPORT_MIFARE_CLASSIC
 
 #include <Due.h>
-#include <PN532.h>
+#include <PN532/PN532/PN532.h>
 #include <Ndef.h>
 #include <NfcTag.h>
 

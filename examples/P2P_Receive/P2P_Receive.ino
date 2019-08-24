@@ -2,8 +2,8 @@
 // Requires SPI. Tested with Seeed Studio NFC Shield v2
 
 #include "SPI.h"
-#include "PN532_SPI.h"
-#include "snep.h"
+#include "PN532/PN532_SPI/PN532_SPI.h"
+#include "PN532/PN532/snep.h"
 #include "NdefMessage.h"
 
 PN532_SPI pn532spi(SPI, 10);

@@ -7,8 +7,8 @@
 // Use a Android of BlackBerry phone to send a message to the NFC shield
 
 #include "SPI.h"
-#include "PN532_SPI.h"
-#include "snep.h"
+#include "PN532/PN532_SPI/PN532_SPI.h"
+#include "PN532/PN532/snep.h"
 #include "NdefMessage.h"
 
 #include "Wire.h"
