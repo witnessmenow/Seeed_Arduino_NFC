@@ -19,13 +19,13 @@ NfcAdapter nfc = NfcAdapter(pn532_i2c);
 #endif
 
 void setup(void) {
-    Serial.begin(9600);
-    Serial.println("NDEF Reader");
+    SERIAL.begin(9600);
+    SERIAL.println("NDEF Reader");
     nfc.begin();
 }
 
 void loop(void) {
-    Serial.println("\nScan a NFC tag\n");
+    SERIAL.println("\nScan a NFC tag\n");
     if (nfc.tagPresent())
     {
         NfcTag tag = nfc.read();

@@ -22,14 +22,14 @@ uint8_t ndefBuf[128];
 LiquidCrystal lcd(0);
 
 void setup() {
-    Serial.begin(9600);
+    SERIAL.begin(9600);
     // set up the LCD's number of rows and columns: 
     lcd.begin(16, 2);
-    Serial.println("NFC Peer to Peer Example - Receive Message");
+    SERIAL.println("NFC Peer to Peer Example - Receive Message");
 }
 
 void loop() {
-    Serial.println("Waiting for message from a peer");
+    SERIAL.println("Waiting for message from a peer");
     int msgSize = nfc.read(ndefBuf, sizeof(ndefBuf));
     if (msgSize > 0) {
         NdefMessage msg  = NdefMessage(ndefBuf, msgSize);
@@ -63,9 +63,9 @@ void loop() {
         lcd.setCursor(0, 0);
         lcd.print(payloadAsString);
         
-        Serial.println("\nSuccess");
+        SERIAL.println("\nSuccess");
     } else {
-        Serial.println("Failed");
+        SERIAL.println("Failed");
     }
     delay(3000);
 }
