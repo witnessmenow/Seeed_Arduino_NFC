@@ -9,7 +9,7 @@
 */
 
 #include <Arduino.h>
-
+#include "PN532/PN532/PN532_debug.h"
 #ifdef NDEF_USE_SERIAL
 void PrintHex(const byte *data, const long numBytes);
 void PrintHexChar(const byte *data, const long numBytes);

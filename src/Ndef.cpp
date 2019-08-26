@@ -7,17 +7,17 @@ void PrintHex(const byte * data, const long numBytes)
   int32_t szPos;
   for (szPos=0; szPos < numBytes; szPos++)
   {
-    Serial.print("0x");
+    SERIAL.print("0x");
     // Append leading 0 for small values
     if (data[szPos] <= 0xF)
-      Serial.print("0");
-    Serial.print(data[szPos]&0xff, HEX);
+      SERIAL.print("0");
+    SERIAL.print(data[szPos]&0xff, HEX);
     if ((numBytes > 1) && (szPos != numBytes - 1))
     {
-      Serial.print(" ");
+      SERIAL.print(" ");
     }
   }
-  Serial.println("");
+  SERIAL.println("");
 }
 
 // Borrowed from Adafruit_NFCShield_I2C
@@ -28,22 +28,22 @@ void PrintHexChar(const byte * data, const long numBytes)
   {
     // Append leading 0 for small values
     if (data[szPos] <= 0xF)
-      Serial.print("0");
-    Serial.print(data[szPos], HEX);
+      SERIAL.print("0");
+    SERIAL.print(data[szPos], HEX);
     if ((numBytes > 1) && (szPos != numBytes - 1))
     {
-      Serial.print(" ");
+      SERIAL.print(" ");
     }
   }
-  Serial.print("  ");
+  SERIAL.print("  ");
   for (szPos=0; szPos < numBytes; szPos++)
   {
     if (data[szPos] <= 0x1F)
-      Serial.print(".");
+      SERIAL.print(".");
     else
-      Serial.print((char)data[szPos]);
+      SERIAL.print((char)data[szPos]);
   }
-  Serial.println("");
+  SERIAL.println("");
 }
 
 // Note if buffer % blockSize != 0, last block will not be written
