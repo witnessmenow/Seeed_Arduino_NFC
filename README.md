@@ -1,4 +1,4 @@
-# NDEF Library for Arduino
+# Seeed Arduino NFC Library
 
 Read and Write NDEF messages on NFC Tags with Arduino.
 
@@ -13,73 +13,70 @@ This code works with the [Adafruit NFC Shield](https://www.adafruit.com/products
  - Writing to Mifare Ultralight tags.
  - Peer to Peer with the Seeed Studio shield
 
-### Requires
-
-[Yihui Xiong's PN532 Library](https://github.com/Seeed-Studio/PN532)
 
 ## Getting Started
 
 To use the Ndef library in your code, include the following in your sketch
 
 For the Adafruit Shield using I2C 
+```c++
+#include <Wire.h>
+#include <PN532_I2C.h>
+#include <PN532.h>
+#include <NfcAdapter.h>
 
-    #include <Wire.h>
-    #include <PN532_I2C.h>
-    #include <PN532.h>
-    #include <NfcAdapter.h>
-    
-    PN532_I2C pn532_i2c(Wire);
-    NfcAdapter nfc = NfcAdapter(pn532_i2c);
-
+PN532_I2C pn532_i2c(Wire);
+NfcAdapter nfc = NfcAdapter(pn532_i2c);
+```
 For the Seeed Shield using SPI
+```c++
+#include <SPI.h>
+#include <PN532_SPI.h>
+#include <PN532.h>
+#include <NfcAdapter.h>
 
-    #include <SPI.h>
-    #include <PN532_SPI.h>
-    #include <PN532.h>
-    #include <NfcAdapter.h>
-    
-    PN532_SPI pn532spi(SPI, 10);
-    NfcAdapter nfc = NfcAdapter(pn532spi);
-
+PN532_SPI pn532spi(SPI, 10);
+NfcAdapter nfc = NfcAdapter(pn532spi);
+```
 ### NfcAdapter
 
 The user interacts with the NfcAdapter to read and write NFC tags using the NFC shield.
 
 Read a message from a tag
-
-    if (nfc.tagPresent()) {
-        NfcTag tag = nfc.read();
-        tag.print();
-    }
-
+```c
+if (nfc.tagPresent()) {
+    NfcTag tag = nfc.read();
+    tag.print();
+}
+```
 Write a message to a tag
-
-    if (nfc.tagPresent()) {
-        NdefMessage message = NdefMessage();
-        message.addTextRecord("Hello, Arduino!");
-        success = nfc.write(message);
-    }
-
+```c++
+if (nfc.tagPresent()) {
+    NdefMessage message = NdefMessage();
+    message.addTextRecord("Hello, Arduino!");
+    success = nfc.write(message);
+}
+```
 Erase a tag. Tags are erased by writing an empty NDEF message. Tags are not zeroed out the old data may still be read off a tag using an application like [NXP's TagInfo](https://play.google.com/store/apps/details?id=com.nxp.taginfolite&hl=en).
-
-    if (nfc.tagPresent()) {
-        success = nfc.erase();
-    }
-
+```c++
+if (nfc.tagPresent()) {
+    success = nfc.erase();
+}
+```
 
 Format a Mifare Classic tag as NDEF.
-
-    if (nfc.tagPresent()) {
-        success = nfc.format();
-    }
-
+```c
+if (nfc.tagPresent()) {
+    success = nfc.format();
+}
+```
 
 Clean a tag. Cleaning resets a tag back to a factory-like state. For Mifare Classic, tag is zeroed and reformatted as Mifare Classic (non-NDEF). For Mifare Ultralight, the tag is zeroed and left empty.
-
-    if (nfc.tagPresent()) {
-        success = nfc.clean();
-    }
-
+```c++
+if (nfc.tagPresent()) {
+    success = nfc.clean();
+}
+```
 
 ### NfcTag 
 
@@ -90,9 +87,10 @@ Reading a tag with the shield, returns a NfcTag object. The NfcTag object contai
 A NdefMessage consist of one or more NdefRecords.
 
 The NdefMessage object has helper methods for adding records.
-
-    ndefMessage.addTextRecord("hello, world");
-    ndefMessage.addUriRecord("http://arduino.cc");
+```c++
+ndefMessage.addTextRecord("hello, world");
+ndefMessage.addUriRecord("http://arduino.cc");
+```
 
 The NdefMessage object is responsible for encoding NdefMessage into bytes so it can be written to a tag. The NdefMessage also decodes bytes read from a tag back into a NdefMessage object.
 
@@ -111,12 +109,12 @@ This code is based on the "NFC Data Exchange Format (NDEF) Technical Specificati
 ### Tests
 
 To run the tests, you'll need [ArduinoUnit](https://github.com/mmurdoch/arduinounit). To "install", I clone the repo to my home directory and symlink the source into ~/Documents/Arduino/libraries/ArduinoUnit.
-
-    $ cd ~
-    $ git clone git@github.com:mmurdoch/arduinounit.git
-    $ cd ~/Documents/Arduino/libraries/
-    $ ln -s ~/arduinounit/src ArduinoUnit
-    
+```shell
+$ cd ~
+$ git clone git@github.com:mmurdoch/arduinounit.git
+$ cd ~/Documents/Arduino/libraries/
+$ ln -s ~/arduinounit/src ArduinoUnit
+```
 Tests can be run on an Uno without a NFC shield, since the NDEF logic is what is being tested.
     
 ## Warning
