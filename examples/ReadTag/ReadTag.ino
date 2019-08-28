@@ -13,9 +13,9 @@ PN532_HSU pn532hsu(Serial1);
 NfcAdapter nfc(pn532hsu);
 #elif 0  // use software serial
 
-#include <PN532/PN532_HSU/PN532_SWHSU.h>
+#include <PN532/PN532_SWHSU/PN532_SWHSU.h>
 #include "SoftwareSerial.h"
-SoftwareSerial SWSerial
+SoftwareSerial SWSerial(2,3);
 PN532_SWHSU pn532swhsu(SWSerial);
 NfcAdapter nfc(pn532swhsu);
 #else //use I2C
