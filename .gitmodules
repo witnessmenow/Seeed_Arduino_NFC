@@ -1,4 +1,0 @@
-[submodule "src/PN532"]
-	path = src/PN532
-	url = https://github.com/seeed-Studio/PN532
-	branch = arduino
