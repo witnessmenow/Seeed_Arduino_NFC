@@ -20,9 +20,12 @@ To use the Ndef library in your code, include the following in your sketch
 
 For the Adafruit Shield using I2C 
 ```c++
+#include <NfcAdapter.h>
+#include <PN532/PN532/PN532.h>
+
 #include <Wire.h>
-#include <PN532_I2C.h>
-#include <PN532.h>
+#include <PN532/PN532_I2C/PN532_I2C.h>
+#include <PN532/PN532/PN532.h>
 #include <NfcAdapter.h>
 
 PN532_I2C pn532_i2c(Wire);
@@ -30,13 +33,16 @@ NfcAdapter nfc = NfcAdapter(pn532_i2c);
 ```
 For the Seeed Shield using SPI
 ```c++
+#include <NfcAdapter.h>
+#include <PN532/PN532/PN532.h>
+
 #include <SPI.h>
-#include <PN532_SPI.h>
-#include <PN532.h>
+#include <PN532/PN532_SPI/PN532_SPI.h>
+#include <PN532/PN532/PN532.h>
 #include <NfcAdapter.h>
 
 PN532_SPI pn532spi(SPI, 10);
-NfcAdapter nfc = NfcAdapter(pn532spi);
+NfcAdapter nfc = NfcAdapter(pn532spi);;
 ```
 ### NfcAdapter
 
