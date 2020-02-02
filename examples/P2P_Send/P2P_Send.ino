@@ -18,13 +18,13 @@ void setup() {
 
 void loop() {
     SERIAL.println("Send a message to Peer");
-    
+
     NdefMessage message = NdefMessage();
     message.addUriRecord("http://shop.oreilly.com/product/mobile/0636920021193.do");
     //message.addUriRecord("http://arduino.cc");
     //message.addUriRecord("https://github.com/don/NDEF");
 
-    
+
     int messageSize = message.getEncodedSize();
     if (messageSize > sizeof(ndefBuf)) {
         SERIAL.println("ndefBuf is too small");

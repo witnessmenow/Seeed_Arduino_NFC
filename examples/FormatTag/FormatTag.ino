@@ -4,20 +4,20 @@
 #include <NfcAdapter.h>
 #include <PN532/PN532/PN532.h>
 #if 0
-#include <SPI.h>
-#include <PN532/PN532_SPI/PN532_SPI.h>
+    #include <SPI.h>
+    #include <PN532/PN532_SPI/PN532_SPI.h>
 
 
-PN532_SPI pn532spi(SPI, 10);
-NfcAdapter nfc = NfcAdapter(pn532spi);
+    PN532_SPI pn532spi(SPI, 10);
+    NfcAdapter nfc = NfcAdapter(pn532spi);
 #else
 
-#include <Wire.h>
-#include <PN532/PN532_I2C/PN532_I2C.h>
+    #include <Wire.h>
+    #include <PN532/PN532_I2C/PN532_I2C.h>
 
 
-PN532_I2C pn532_i2c(Wire);
-NfcAdapter nfc = NfcAdapter(pn532_i2c);
+    PN532_I2C pn532_i2c(Wire);
+    NfcAdapter nfc = NfcAdapter(pn532_i2c);
 #endif
 
 void setup(void) {
@@ -27,15 +27,15 @@ void setup(void) {
 }
 
 void loop(void) {
-    
+
     SERIAL.println("\nPlace an unformatted Mifare Classic tag on the reader.");
     if (nfc.tagPresent()) {
 
         bool success = nfc.format();
         if (success) {
-          SERIAL.println("\nSuccess, tag formatted as NDEF.");
+            SERIAL.println("\nSuccess, tag formatted as NDEF.");
         } else {
-          SERIAL.println("\nFormat failed.");
+            SERIAL.println("\nFormat failed.");
         }
 
     }

@@ -21,33 +21,32 @@
 #define PN532_NO_SPACE                (-4)
 
 #define REVERSE_BITS_ORDER(b)         b = (b & 0xF0) >> 4 | (b & 0x0F) << 4; \
-                                      b = (b & 0xCC) >> 2 | (b & 0x33) << 2; \
-                                      b = (b & 0xAA) >> 1 | (b & 0x55) << 1
+    b = (b & 0xCC) >> 2 | (b & 0x33) << 2; \
+    b = (b & 0xAA) >> 1 | (b & 0x55) << 1
 
-class PN532Interface
-{
-public:
+class PN532Interface {
+  public:
     virtual void begin() = 0;
     virtual void wakeup() = 0;
 
     /**
-    * @brief    write a command and check ack
-    * @param    header  packet header
-    * @param    hlen    length of header
-    * @param    body    packet body
-    * @param    blen    length of body
-    * @return   0       success
-    *           not 0   failed
+        @brief    write a command and check ack
+        @param    header  packet header
+        @param    hlen    length of header
+        @param    body    packet body
+        @param    blen    length of body
+        @return   0       success
+                not 0   failed
     */
-    virtual int8_t writeCommand(const uint8_t *header, uint8_t hlen, const uint8_t *body = 0, uint8_t blen = 0) = 0;
+    virtual int8_t writeCommand(const uint8_t* header, uint8_t hlen, const uint8_t* body = 0, uint8_t blen = 0) = 0;
 
     /**
-    * @brief    read the response of a command, strip prefix and suffix
-    * @param    buf     to contain the response data
-    * @param    len     lenght to read
-    * @param    timeout max time to wait, 0 means no timeout
-    * @return   >=0     length of response without prefix and suffix
-    *           <0      failed to read response
+        @brief    read the response of a command, strip prefix and suffix
+        @param    buf     to contain the response data
+        @param    len     lenght to read
+        @param    timeout max time to wait, 0 means no timeout
+        @return   >=0     length of response without prefix and suffix
+                <0      failed to read response
     */
     virtual int16_t readResponse(uint8_t buf[], uint8_t len, uint16_t timeout = 1000) = 0;
 };

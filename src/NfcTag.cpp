@@ -1,31 +1,27 @@
 #include <NfcTag.h>
 
-NfcTag::NfcTag()
-{
+NfcTag::NfcTag() {
     _uid = 0;
     _uidLength = 0;
     _tagType = "Unknown";
     _ndefMessage = (NdefMessage*)NULL;
 }
 
-NfcTag::NfcTag(byte *uid, unsigned int uidLength)
-{
+NfcTag::NfcTag(byte* uid, unsigned int uidLength) {
     _uid = uid;
     _uidLength = uidLength;
     _tagType = "Unknown";
     _ndefMessage = (NdefMessage*)NULL;
 }
 
-NfcTag::NfcTag(byte *uid, unsigned int  uidLength, String tagType)
-{
+NfcTag::NfcTag(byte* uid, unsigned int  uidLength, String tagType) {
     _uid = uid;
     _uidLength = uidLength;
     _tagType = tagType;
     _ndefMessage = (NdefMessage*)NULL;
 }
 
-NfcTag::NfcTag(byte *uid, unsigned int  uidLength, String tagType, NdefMessage& ndefMessage)
-{
+NfcTag::NfcTag(byte* uid, unsigned int  uidLength, String tagType, NdefMessage& ndefMessage) {
     _uid = uid;
     _uidLength = uidLength;
     _tagType = tagType;
@@ -33,23 +29,19 @@ NfcTag::NfcTag(byte *uid, unsigned int  uidLength, String tagType, NdefMessage& 
 }
 
 // I don't like this version, but it will use less memory
-NfcTag::NfcTag(byte *uid, unsigned int uidLength, String tagType, const byte *ndefData, const int ndefDataLength)
-{
+NfcTag::NfcTag(byte* uid, unsigned int uidLength, String tagType, const byte* ndefData, const int ndefDataLength) {
     _uid = uid;
     _uidLength = uidLength;
     _tagType = tagType;
     _ndefMessage = new NdefMessage(ndefData, ndefDataLength);
 }
 
-NfcTag::~NfcTag()
-{
+NfcTag::~NfcTag() {
     delete _ndefMessage;
 }
 
-NfcTag& NfcTag::operator=(const NfcTag& rhs)
-{
-    if (this != &rhs)
-    {
+NfcTag& NfcTag::operator=(const NfcTag& rhs) {
+    if (this != &rhs) {
         delete _ndefMessage;
         _uid = rhs._uid;
         _uidLength = rhs._uidLength;
@@ -60,28 +52,22 @@ NfcTag& NfcTag::operator=(const NfcTag& rhs)
     return *this;
 }
 
-uint8_t NfcTag::getUidLength()
-{
+uint8_t NfcTag::getUidLength() {
     return _uidLength;
 }
 
-void NfcTag::getUid(byte *uid, unsigned int uidLength)
-{
+void NfcTag::getUid(byte* uid, unsigned int uidLength) {
     memcpy(uid, _uid, _uidLength < uidLength ? _uidLength : uidLength);
 }
 
-String NfcTag::getUidString()
-{
+String NfcTag::getUidString() {
     String uidString = "";
-    for (unsigned int i = 0; i < _uidLength; i++)
-    {
-        if (i > 0)
-        {
+    for (unsigned int i = 0; i < _uidLength; i++) {
+        if (i > 0) {
             uidString += " ";
         }
 
-        if (_uid[i] < 0xF)
-        {
+        if (_uid[i] < 0xF) {
             uidString += "0";
         }
 
@@ -91,32 +77,25 @@ String NfcTag::getUidString()
     return uidString;
 }
 
-String NfcTag::getTagType()
-{
+String NfcTag::getTagType() {
     return _tagType;
 }
 
-boolean NfcTag::hasNdefMessage()
-{
+boolean NfcTag::hasNdefMessage() {
     return (_ndefMessage != NULL);
 }
 
-NdefMessage NfcTag::getNdefMessage()
-{
+NdefMessage NfcTag::getNdefMessage() {
     return *_ndefMessage;
 }
 #ifdef NDEF_USE_SERIAL
 
-void NfcTag::print()
-{
-    SERIAL.print(F("NFC Tag - "));SERIAL.println(_tagType);
-    SERIAL.print(F("UID "));SERIAL.println(getUidString());
-    if (_ndefMessage == NULL)
-    {
+void NfcTag::print() {
+    SERIAL.print(F("NFC Tag - ")); SERIAL.println(_tagType);
+    SERIAL.print(F("UID ")); SERIAL.println(getUidString());
+    if (_ndefMessage == NULL) {
         SERIAL.println(F("\nNo NDEF Message"));
-    }
-    else
-    {
+    } else {
         _ndefMessage->print();
     }
 }
