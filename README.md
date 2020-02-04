@@ -1,4 +1,4 @@
-# Seeed Arduino NFC Library
+# Seeed Arduino NFC Library  [![Build Status](https://travis-ci.com/Seeed-Studio/Seeed_Arduino_NFC.svg?branch=master)](https://travis-ci.com/Seeed-Studio/Seeed_Arduino_NFC)
 
 Read and Write NDEF messages on NFC Tags with Arduino.
 
