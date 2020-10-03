@@ -17,7 +17,8 @@ void NfcAdapter::begin(boolean verbose) {
         #ifdef NDEF_USE_SERIAL
         SERIAL.print(F("Didn't find PN53x board"));
         #endif
-        while (1); // halt
+        //while (1); // halt
+        fail = true;
     }
 
     if (verbose) {

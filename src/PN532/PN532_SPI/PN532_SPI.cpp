@@ -7,27 +7,39 @@
 #define DATA_WRITE 1
 #define DATA_READ 3
 
-PN532_SPI::PN532_SPI(SPIClass& spi, uint8_t ss) {
+PN532_SPI::PN532_SPI(SPIClass& spi, uint8_t ss, int8_t sck, int8_t miso, int8_t mosi) {
     command = 0;
     _spi = &spi;
     _ss = ss;
+
+    _sck = sck;
+    _miso = miso;
+    _mosi = mosi;
 }
 
-void PN532_SPI::begin() {
+void PN532_SPI::begin()
+{
     pinMode(_ss, OUTPUT);
 
-    _spi->begin();
+    // Default pins are being used.
+    if(_sck == -1)
+    {
+        _spi->begin(); 
+    } else {
+        _spi->begin(_sck, _miso, _mosi, _ss);
+    }
+
     _spi->setDataMode(SPI_MODE0); // PN532 only supports mode0
     _spi->setBitOrder(LSBFIRST);
-    #if defined __SAM3X8E__
+#if defined __SAM3X8E__
     /** DUE spi library does not support SPI_CLOCK_DIV8 macro */
     _spi->setClockDivider(42); // set clock 2MHz(max: 5MHz)
-    #elif defined __SAMD21G18A__
+#elif defined __SAMD21G18A__
     /** M0 spi library does not support SPI_CLOCK_DIV8 macro */
     _spi->setClockDivider(24); // set clock 2MHz(max: 5MHz)
-    #else
+#else
     _spi->setClockDivider(SPI_CLOCK_DIV8); // set clock 2MHz(max: 5MHz)
-    #endif
+#endif
 }
 
 void PN532_SPI::wakeup() {

@@ -7,7 +7,7 @@
 
 class PN532_SPI : public PN532Interface {
   public:
-    PN532_SPI(SPIClass& spi, uint8_t ss);
+    PN532_SPI(SPIClass& spi, uint8_t ss, int8_t sck=-1, int8_t miso=-1, int8_t mosi=-1);
 
     void begin();
     void wakeup();
@@ -18,6 +18,9 @@ class PN532_SPI : public PN532Interface {
   private:
     SPIClass* _spi;
     uint8_t _ss;
+    int8_t _sck;
+    int8_t _miso;
+    int8_t _mosi;
     uint8_t command;
 
     bool isReady();
